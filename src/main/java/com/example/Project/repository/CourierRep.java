@@ -1,4 +1,8 @@
 package com.example.Project.repository;
 
-public interface CourierRep {
+import com.example.Project.model.Courier;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CourierRep
+        extends JpaRepository<Courier,Long> {
 }
