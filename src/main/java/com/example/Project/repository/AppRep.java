@@ -1,4 +1,7 @@
 package com.example.Project.repository;
 
-public interface AppRep {
+import com.example.Project.model.Application;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AppRep extends JpaRepository<Application, Long> {
 }
