@@ -4,6 +4,7 @@ import com.example.Project.enums.Pointer;
 import com.example.Project.model.Application;
 import com.example.Project.model.Courier;
 import com.example.Project.model.Office;
+import com.example.Project.repository.AppRep;
 import com.example.Project.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Main implements CommandLineRunner {
     @Autowired
-    private CrudService<Application> appRep;
+    private AppRep appRep;
 
     @Autowired
     private CrudService<Office> officeCrudService;
@@ -22,7 +23,7 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Application application = new Application.Builder("222","Gogolya 112-8", Pointer.BISHKEK)
+        Application application = new Application.Builder("222", "Gogolya 112-8", Pointer.BISHKEK)
                 .withEndPoint(Pointer.OSH)
                 .withFio("Kanat Subanov")
                 .withnameItem("Konvert")

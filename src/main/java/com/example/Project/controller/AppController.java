@@ -1,6 +1,8 @@
 package com.example.Project.controller;
 
+import com.example.Project.enums.Pointer;
 import com.example.Project.model.Application;
+import com.example.Project.model.Courier;
 import com.example.Project.service.CrudService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(AppController.URL_APPLICATION)
+@RequestMapping("/app")
 public class AppController {
-    public final static String URL_APPLICATION = "/spring/app";
     @Autowired
     private CrudService<Application> appServise;
-    
-    
+
+    @Autowired
+    private CrudService<Courier> courierCrudService;
+
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Application> getAll() {
         return appServise.getAll();
@@ -32,9 +35,19 @@ public class AppController {
     }
 
     @PostMapping(path = "/add", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public Response add(@RequestBody Application c) {
+    public Response add(@RequestBody Application application) {
+        Application application1 = this.appServise.save(application);
+        Long id1 = new Long("1");
+        Long id2 = new Long("2");
+        Courier courier1 = courierCrudService.findById(id1);
+        Courier courier2 = courierCrudService.findById(id2);
         try {
-            return new Response("Successfully created", true, appServise.save(c));
+            if(application.getStartPoint().equals(Pointer.BISHKEK)){
+                return new Response("Ожидайте курьера", true, courierCrudService.findById(courier1.getId()));
+            }
+            else {
+                return new Response("Ожидайте курьера", true, courierCrudService.findById(courier2.getId()));
+            }
         } catch (Exception e) {
             return new Response(e.toString(), false, null);
         }
