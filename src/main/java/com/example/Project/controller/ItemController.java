@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/office")
+@RequestMapping("/item")
 public class ItemController {
     @Autowired
     private CrudService<Item> itemCrudService;
