@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/office")
+@RequestMapping("/courier")
 public class CourierController {
     @Autowired
     private CrudService<Courier> courierCrudService;
