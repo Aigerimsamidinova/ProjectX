@@ -1,8 +1,6 @@
 package com.example.Project.model;
 
 import com.example.Project.enums.Pointer;
-import org.springframework.data.annotation.TypeAlias;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
