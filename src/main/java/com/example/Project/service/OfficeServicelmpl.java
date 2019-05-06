@@ -1,6 +1,9 @@
 package com.example.Project.service;
 
+import com.example.Project.enums.StatusItem;
+import com.example.Project.model.Item;
 import com.example.Project.model.Office;
+import com.example.Project.repository.ItemRep;
 import com.example.Project.repository.OfficeRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,9 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OfficeServicelmpl implements CrudService<Office> {
+public class OfficeServicelmpl implements CrudService<Office>, OfficeService {
     @Autowired
     private OfficeRep officeRep;
+
+    @Autowired
+    private ItemRep itemRep;
+
 
     @Override
     public List<Office> getAll() {
@@ -40,5 +47,20 @@ public class OfficeServicelmpl implements CrudService<Office> {
     @Override
     public void deleteAll() {
         officeRep.deleteAll();
+    }
+
+    @Override
+    public Office addItem(Long id, Long itemId) {
+        Office office = officeRep.findById(id).get();
+        List<Item> items = office.getItems();
+        Item item = itemRep.findById(itemId).get();
+        if (item.getStartPoint().equals(office.getAddress())) {
+            item.setStatusItem(StatusItem.InTheOffice);
+            itemRep.save(item);
+            items.add(item);
+        }
+        office.setItems(items);
+        officeRep.save(office);
+        return office;
     }
 }

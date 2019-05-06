@@ -2,6 +2,7 @@ package com.example.Project.controller;
 
 import com.example.Project.model.Office;
 import com.example.Project.service.CrudService;
+import com.example.Project.service.OfficeService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +15,9 @@ import java.util.List;
 public class OfficeController {
     @Autowired
     private CrudService<Office> officeCrudService;
+
+    @Autowired
+    private OfficeService officeService;
 
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Office> getAll() {
@@ -64,6 +68,17 @@ public class OfficeController {
             return new Response("Deleted all offices", true, null);
         } catch (Exception e) {
             return new Response(e.toString(), false, null);
+        }
+    }
+
+    @GetMapping("/{id}/addItem/{itemId}")
+    public Response getOffice(@PathVariable Long id,
+                            @PathVariable Long itemId) {
+        try {
+            return new Response("successfully added new item to Office item list",
+                    true,officeService.addItem(id,itemId));
+        }catch (Exception e){
+            return new Response(e.toString(),false,null);
         }
     }
 }
