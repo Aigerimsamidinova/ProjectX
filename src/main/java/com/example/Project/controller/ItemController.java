@@ -1,6 +1,7 @@
 package com.example.Project.controller;
 
 import com.example.Project.model.Item;
+import com.example.Project.repository.ItemRep;
 import com.example.Project.service.CrudService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ public class ItemController {
     @Autowired
     private CrudService<Item> itemCrudService;
 
+    @Autowired
+    private ItemRep itemRep;
+
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Item> getAll() {
-        return itemCrudService.getAll();
+        return itemRep.findAll();
     }
 
     @GetMapping(path = "/get/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
