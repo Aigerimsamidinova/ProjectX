@@ -57,17 +57,18 @@ public class ClientServiceImpl implements CrudService<Client>, ClientService {
         Client client = getClient(c);
         Item item = getItem(itemId);
         Office office = getOffice(officeId);
+
         List<Item> items = office.getItems();
+
         List<Item> clientItems = new ArrayList<>();
+
         for (Item it : items) {
             if (it.getId().equals(itemId)) {
                 item.setStatusItem(StatusItem.TakenAway);
                 clientItems.add(it);
-                items.remove(it);
             }
         }
         client.setItems(clientItems);
-        office.setItems(items);
         itemRep.save(item);
         officeRep.save(office);
         clientRep.save(client);
