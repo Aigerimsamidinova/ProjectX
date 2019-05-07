@@ -1,6 +1,8 @@
 package com.example.Project.model;
 
 import com.example.Project.enums.Pointer;
+import com.example.Project.enums.StatusApp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,8 @@ public class Application {
     private double weightItem;
     private Pointer startPoint;
     private Pointer endPoint;
+    private StatusApp statusApp;
+
 
     public Application() {
     }
@@ -87,6 +91,14 @@ public class Application {
 
     public void setEndPoint(Pointer endPoint) {
         this.endPoint = endPoint;
+    }
+
+    public StatusApp getStatusApp() {
+        return statusApp;
+    }
+
+    public void setStatusApp(StatusApp statusApp) {
+        this.statusApp = statusApp;
     }
 
     public static class Builder {
