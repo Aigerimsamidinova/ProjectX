@@ -1,5 +1,7 @@
 package com.example.Project.service;
 
-public interface ClientService {
+import com.example.Project.model.Client;
 
+public interface ClientService {
+    Client bookItem(Long itemId, Long officeId, Client c);
 }

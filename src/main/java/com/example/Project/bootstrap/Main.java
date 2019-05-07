@@ -7,13 +7,14 @@ import com.example.Project.model.Office;
 import com.example.Project.repository.AppRep;
 import com.example.Project.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Main implements CommandLineRunner {
     @Autowired
-    private AppRep appRep;
+    private CrudService<Application> applicationCrudService;
 
     @Autowired
     private CrudService<Office> officeCrudService;
@@ -23,13 +24,13 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Application application = new Application.Builder("222", "Gogolya 112-8", Pointer.BISHKEK)
-                .withEndPoint(Pointer.OSH)
-                .withFio("Kanat Subanov")
-                .withnameItem("Konvert")
-                .withWeightItem(0.01)
-                .build();
-        appRep.save(application);
+//        Application application = new Application.Builder("222","Gogolya 112-8", Pointer.BISHKEK)
+//                .withEndPoint(Pointer.OSH)
+//                .withFio("Kanat Subanov")
+//                .withnameItem("Konvert")
+//                .withWeightItem(0.01)
+//                .build();
+//        applicationCrudService.save(application);
 
         Courier courier1 = new Courier.Builder(Pointer.BISHKEK)
                 .withEmail("kumarsamiev@gmail.com")
@@ -40,7 +41,6 @@ public class Main implements CommandLineRunner {
                 .withEmail("kanatsubanov@gmail.com")
                 .withFio("Subanov Kanat").withPhone("222").build();
         courierCrudService.save(courier2);
-
 
         Office office1 = new Office.Builder(Pointer.BISHKEK).build();
         officeCrudService.save(office1);

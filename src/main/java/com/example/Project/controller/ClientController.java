@@ -1,9 +1,11 @@
 package com.example.Project.controller;
 
 import com.example.Project.model.Client;
+import com.example.Project.service.ClientService;
 import com.example.Project.service.CrudService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,9 @@ import java.util.List;
 public class ClientController {
     @Autowired
     private CrudService<Client> clientCrudService;
+
+    @Autowired
+    private ClientService clientService;
 
     @PostMapping(path = "/add", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Response add(@RequestBody Client c) {
@@ -37,6 +42,18 @@ public class ClientController {
             return new Response("Delete client by id: " + id, true, null);
         } catch (Exception ex) {
             return new Response(ex.getMessage(), false, null);
+        }
+    }
+
+    @PostMapping("/{itemId}/{officeId}/bookItem")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Response bookItem(@PathVariable Long itemId,
+                             @PathVariable Long officeId,
+                             @RequestBody Client client) {
+        try {
+            return new Response("Take items from the office", true, this.clientService.bookItem(itemId, officeId, client));
+        } catch (Exception e) {
+            return new Response(e.toString(), false, null);
         }
     }
 }
