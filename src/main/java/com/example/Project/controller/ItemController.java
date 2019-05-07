@@ -3,6 +3,7 @@ package com.example.Project.controller;
 import com.example.Project.model.Item;
 import com.example.Project.repository.ItemRep;
 import com.example.Project.service.CrudService;
+import com.example.Project.service.ItemService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,6 +19,9 @@ public class ItemController {
 
     @Autowired
     private ItemRep itemRep;
+
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Item> getAll() {
@@ -69,5 +73,10 @@ public class ItemController {
         } catch (Exception e) {
             return new Response(e.toString(), false, null);
         }
+    }
+
+    @GetMapping(path = "/get/itemsInOffice/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public List<Item> getItemsInOffice(@PathVariable Long id) {
+        return itemService.getItemsInOffice(id);
     }
 }

@@ -11,6 +11,7 @@ import com.example.Project.service.CrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,8 +50,6 @@ public class Main implements CommandLineRunner {
 
         Office office2 = new Office.Builder(Pointer.OSH).build();
         officeCrudService.save(office2);
-
-
 
     }
 }
