@@ -1,8 +1,10 @@
 package com.example.Project.bootstrap;
 
 import com.example.Project.enums.Pointer;
+import com.example.Project.enums.StatusItem;
 import com.example.Project.model.Application;
 import com.example.Project.model.Courier;
+import com.example.Project.model.Item;
 import com.example.Project.model.Office;
 import com.example.Project.repository.AppRep;
 import com.example.Project.service.CrudService;
@@ -47,5 +49,8 @@ public class Main implements CommandLineRunner {
 
         Office office2 = new Office.Builder(Pointer.OSH).build();
         officeCrudService.save(office2);
+
+
+
     }
 }
