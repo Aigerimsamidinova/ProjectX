@@ -21,7 +21,7 @@ public class ItemController {
 
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Item> getAll() {
-        return itemRep.findAll();
+        return itemCrudService.getAll();
     }
 
     @GetMapping(path = "/get/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
