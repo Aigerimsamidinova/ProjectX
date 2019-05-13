@@ -1,6 +1,7 @@
 package com.example.Project.controller;
 
 import com.example.Project.enums.Pointer;
+import com.example.Project.enums.StatusApp;
 import com.example.Project.model.Application;
 import com.example.Project.model.Courier;
 import com.example.Project.service.CrudService;
@@ -49,6 +50,8 @@ public class AppController {
                 return new Response("Ожидайте курьера", true, courierCrudService.findById(courier2.getId()));
             }
         } catch (Exception e) {
+            application1.setStatusApp(StatusApp.ERROR);
+            appServise.update(application1);
             return new Response(e.toString(), false, null);
         }
     }

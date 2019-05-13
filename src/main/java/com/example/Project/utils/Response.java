@@ -2,13 +2,13 @@ package com.example.Project.utils;
 
 public class Response {
     private String message;
-    private Boolean status;
-    private Object object;
+    private Boolean success;
+    private Object data;
 
-    public Response(String message, Boolean status, Object object) {
+    public Response(String message, Boolean success, Object data) {
         this.message = message;
-        this.status = status;
-        this.object = object;
+        this.success = success;
+        this.data = data;
     }
 
     public String getMessage() {
@@ -19,19 +19,19 @@ public class Response {
         this.message = message;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public Boolean getSuccess() {
+        return success;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    public Object getObject() {
-        return object;
+    public Object getData() {
+        return data;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setData(Object data) {
+        this.data = data;
     }
 }

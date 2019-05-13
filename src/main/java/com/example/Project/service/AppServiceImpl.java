@@ -1,5 +1,6 @@
 package com.example.Project.service;
 
+import com.example.Project.enums.StatusApp;
 import com.example.Project.enums.StatusItem;
 import com.example.Project.model.Application;
 import com.example.Project.model.Item;
@@ -30,6 +31,7 @@ public class AppServiceImpl implements CrudService<Application> {
     @Override
     public Application save(Application application) {
         getNewItem(application);
+        application.setStatusApp(StatusApp.WAITING);
         return appRep.save(application);
     }
 

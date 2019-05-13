@@ -1,6 +1,9 @@
 package com.example.Project.controller;
 
+import com.example.Project.enums.StatusApp;
+import com.example.Project.model.Application;
 import com.example.Project.model.Courier;
+import com.example.Project.service.CourierService;
 import com.example.Project.service.CrudService;
 import com.example.Project.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,12 @@ import java.util.List;
 public class CourierController {
     @Autowired
     private CrudService<Courier> courierCrudService;
+
+    @Autowired
+    private CourierService courierService;
+
+    @Autowired
+    private CrudService<Application> applicationCrudService;
 
     @GetMapping(path = "/getAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Courier> getAll() {
@@ -34,6 +43,21 @@ public class CourierController {
         try {
             return new Response("Successfully created", true, courierCrudService.save(courier));
         } catch (Exception e) {
+            return new Response(e.toString(), false, null);
+        }
+    }
+ @PostMapping(path = "/change/{courierId}/{appId}/{code}",
+         produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public Response changeAppStatus(@RequestBody Courier courier,
+                                    @PathVariable Long courierId,
+                                    @PathVariable Long appId,
+                                    @PathVariable String code) {
+     Application application = courierService.changeApplicationStatus(courierId,appId, code);
+        try {
+            return new Response("Successfully changed", true, application);
+        } catch (Exception e) {
+            application.setStatusApp(StatusApp.ERROR);
+            applicationCrudService.update(application);
             return new Response(e.toString(), false, null);
         }
     }
